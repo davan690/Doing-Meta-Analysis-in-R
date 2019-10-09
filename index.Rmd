@@ -1,8 +1,12 @@
 --- 
 title: "Doing Meta-Analysis in R"
 subtitle: "A Hands-on Guide"
-author: "Mathias Harrer, B.Sc.¹, Prof. Dr. Pim Cuijpers² & Assoc. Prof. Dr. David Ebert²"
-date: "¹Friedrich-Alexander-University Erlangen-Nuremberg, ²Vrije Universiteit Amsterdam"
+author: 
+- Mathias Harrer, B.Sc.¹ 
+- Prof. Dr. Pim Cuijpers²
+- Prof. Dr. Toshi A. Furukawa³
+- Assoc. Prof. Dr. David D. Ebert²
+date: "¹Friedrich-Alexander-University Erlangen-Nuremberg, ²Vrije Universiteit Amsterdam, ³Kyoto University"
 github-repo: "MathiasHarrer/Doing-Meta-Analysis-in-R"
 site: bookdown::bookdown_site
 output: 
@@ -25,35 +29,41 @@ description: "This is a guide on how to conduct Meta-Analysis in R."
 favicon: "favicon.ico"
 ---
 
+# (PART) Introduction & R Basics {-}
+
 # About this Guide
 
-![](coverbild.jpg)
+![](_figs/coverbild.jpg)
 
 ```{block,type='rmdinfo'}
-This guide shows you how to conduct Meta-Analyses in R from scratch. The focus of this guide is primarily on clinical outcome research in psychology. It is designed for staff and collaborators of the [**PROTECT Lab**](https://www.protectlab.org), which is headed by **Dr. David D. Ebert**.
+This guide shows you how to conduct Meta-Analyses in R from scratch. The focus of this guide is primarily on clinical outcome research in psychology. It was designed for staff and collaborators of the [**PROTECT Lab**](https://www.protectlab.org), which is headed by **Prof. Dr. David D. Ebert**.
 ```
 
 <br></br>
-<img width="40%" src="protectlogo.PNG"/>
-<img width="15%" src="hexagon.png"/>
+<img width="40%" src="_figs/protectlogo.PNG"/>
+<img width="15%" src="_figs/hexagon.png"/>
 
 
 ---
 
 **The guide will show you how to:**
  
-* Get **R** and **RStudio** set for your Meta-Analysis
-* Get your data into R
-* **Prepare your data** for the meta-analysis
-* Perform **fixed-effect** and **random-effects** meta-analysis using the `meta` and `metafor`packages
-* Analyse the **heterogeneity** of your results
-* Tackle heterogeneity using **subgroup analyses** and **meta-regression**
-* Check if **selective outcome reporting (publication bias)** is a present in your data
-* Control for selective outcome reporting and publication bias
-* Analyse the **risk of bias** in your data
+* Get **R** and **RStudio** set for your Meta-Analysis.
+* Get your data into R.
+* **Prepare your data** for the meta-analysis.
+* Introduce you to the `dmetar` *R* package we built specifically for this guide.
+* Perform **fixed-effect** and **random-effects** meta-analysis using the `meta` and `metafor` packages.
+* Analyse the **heterogeneity** of your results.
+* Tackle heterogeneity using **subgroup analyses** and **meta-regression**.
+* Check if **selective outcome reporting (publication bias)**  or **p-hacking** is a present in your data
+* Summarize the **risk of bias** in your data
+* Calculate the **power** of a meta-analysis
+* **Convert effect sizes** reported in original studies to the ones you need for your meta-analysis.
 * Do advanced types of meta-analyses, such as 
-    + **network analyses** or 
-    + meta-analyses with **more than one outcome**
+    + **multilevel meta-analyses**
+    + **multivariate meta-analyses**
+    + **meta-analytic structural equation modeling** or
+    + **network meta-analyses**.
   
 
 ---
@@ -69,14 +79,14 @@ It is also beyond the scope of this guide to advise in detail which meta-analyti
 **Generally, there a two other sources to recommended when conducting Meta-Analyses:**
   
 * If you're looking for a easily digestable, hands-on introduction on how Meta-Analyses are conducted, we can recommend **Pim Cuijpers' online courses on Meta-Analysis**. The courses are freely available on YouTube. To have a look, click [here](https://www.youtube.com/watch?v=pP7_VBrG_TY&list=PL-h5cI5Bkvt0J-O0kq_9J9_aksWFPgR7s).
-* If you're interested in more details on how to conduct Meta-Analyses in R, you can either have a look at Wolfgang Viechtbauer's page for the `metafor` package ([Link](http://metafor-project.org)). Or you can consult a book on the `meta` package which was recently published [@schwarzer2015meta].
+* If you're interested in more details on how to conduct Meta-Analyses in R, you can either have a look at Wolfgang Viechtbauer's page for the `metafor` package ([Link](http://metafor-project.org)). Or you can consult a book written by Schwarzer and colleagues on the `meta` package [@schwarzer2015meta].
 
 <br><br>
 
 ````{block,type='rmdinfo'}
 **How to get the R code for this guide**
 
-![](githublogo.png)
+![](_figs/githublogo.png)
 
 All code behind this book is available online on **GitHub**. We have created a website containing a **download link** for all codes, and a **quick guide** on how to get the code running on your computer. The site can be found [here](https://mathiasharrer.github.io/Doing-Meta-Analysis-in-R/).
 ```
@@ -85,7 +95,8 @@ All code behind this book is available online on **GitHub**. We have created a w
 
 **How to cite this guide**
 
-Harrer, M. & Ebert, D. D. (2018). Doing Meta-Analysis in R: A practical Guide. *PROTECT Lab Friedrich-Alexander University Erlangen-Nuremberg*. [https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/)
+Harrer, M., Cuijpers, P., Furukawa, T.A, & Ebert, D. D. (2019). Doing Meta-Analysis in R: A Hand-on Guide. [https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/).
+[![DOI](https://zenodo.org/badge/152492192.svg)](https://zenodo.org/badge/latestdoi/152492192)
 
 
 ```{r eval=FALSE, echo=FALSE}
